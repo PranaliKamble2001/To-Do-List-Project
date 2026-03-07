@@ -1,0 +1,78 @@
+body {
+    background-color: #f1eef1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.todo-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 380px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.add-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-btn:hover { background-color: #0056b3; }
+
+ul { list-style: none; padding: 0; margin-top: 25px; }
+
+li {
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    padding: 12px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* The 'Completed' Logic Style */
+.completed {
+    text-decoration: line-through;
+    color: #888;
+    opacity: 0.6;
+}
+
+.task-text {
+    flex: 1;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.delete-btn:hover { background-color: #d93636; }
