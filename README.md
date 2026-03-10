@@ -1,12 +1,12 @@
-# Task-Engine Project 📝
+# Task-Engine Project 
 > **A modern To-Do List app built with JavaScript, featuring data saving and a clean UI.**
 
-## 📌 Project Overview
+##  Project Overview
 This project is a functional **Task Manager** that I built to practice real-world coding. Instead of just making a simple list, I focused on how data moves in a web app—from typing a task to saving it in the browser's memory so it doesn't disappear when you refresh.
 
 ------------------------------------------------------------------------------------------------
 
-## 📂 How it's Structured
+##  How it's Structured
 I kept the code organized using the **Separation of Concerns** principle. This means each file has one specific job:
 
 * **index.html:** The "Skeleton" of the app. I used proper HTML tags to make it easy for browsers to read.
