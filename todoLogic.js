@@ -1,62 +1,88 @@
 /**
- * Core Logic: To-Do Management
- * Focus: Array Methods (map, filter) and State-to-UI Sync
+ * Core Logic: Task Management System
+ * Focus: State Persistence & Clean DOM Manipulation
  */
 
-// 1. Array to hold task objects (The "State")
 let tasks = [];
 
-// 2. CREATE: Adding a new task
+window.onload = () => {
+    const savedData = localStorage.getItem("archivedTasks");
+    if (savedData) {
+        tasks = JSON.parse(savedData);
+        renderTasks();
+    }
+};
+
+function syncStorage() {
+    localStorage.setItem("archivedTasks", JSON.stringify(tasks));
+    document.getElementById('taskCount').textContent = tasks.length;
+    
+    // Using classList instead of .style.display to avoid "no-inline-styles" warning
+    const footer = document.getElementById('footerAction');
+    if (tasks.length > 0) {
+        footer.classList.add('show-footer');
+    } else {
+        footer.classList.remove('show-footer');
+    }
+}
+
 function handleNewTask() {
     const input = document.getElementById('taskInput');
     const taskText = input.value.trim();
 
     if (taskText !== "") {
-        const newTask = {
-            id: Date.now(), // Unique ID using timestamp
+        tasks.push({
+            id: Date.now(),
             text: taskText,
             isDone: false
-        };
-        tasks.push(newTask);
-        input.value = ""; // Clear input field
+        });
+        input.value = "";
         renderTasks();
     }
 }
 
-// 3. UPDATE: Toggling the 'isDone' status using .map()
 function toggleComplete(id) {
-    tasks = tasks.map(task => {
-        if (task.id === id) {
-            return { ...task, isDone: !task.isDone };
-        }
-        return task;
-    });
+    tasks = tasks.map(task => 
+        task.id === id ? { ...task, isDone: !task.isDone } : task
+    );
     renderTasks();
 }
 
-// 4. DELETE: Removing a task using .filter()
 function deleteTask(id) {
     tasks = tasks.filter(task => task.id !== id);
     renderTasks();
 }
 
-// 5. RENDER: Updating the UI based on the current 'tasks' state
+function clearAllTasks() {
+    if (confirm("Clear all tasks from memory?")) {
+        tasks = [];
+        renderTasks();
+    }
+}
+
 function renderTasks() {
     const list = document.getElementById('listContainer');
     list.innerHTML = ""; 
 
-    tasks.forEach((task) => {
-        const li = document.createElement('li');
-        
-        // Determine if the completed class should be applied
-        const statusClass = task.isDone ? "completed" : "";
+    if (tasks.length === 0) {
+        const emptyMsg = document.createElement('li');
+        emptyMsg.className = "empty-state"; // Applied clean CSS class
+        emptyMsg.textContent = "No active tasks";
+        list.appendChild(emptyMsg);
+    } else {
+        tasks.forEach((task) => {
+            const li = document.createElement('li');
+            const statusClass = task.isDone ? "completed" : "";
 
-        li.innerHTML = `
-            <span class="task-text ${statusClass}" onclick="toggleComplete(${task.id})">
-                ${task.text}
-            </span>
-            <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
-        `;
-        list.appendChild(li);
-    });
+            li.innerHTML = `
+                <span class="task-text ${statusClass}" onclick="toggleComplete(${task.id})">
+                    ${task.text}
+                </span>
+                <button type="button" class="delete-btn" onclick="deleteTask(${task.id})">Remove</button>
+            `;
+            list.appendChild(li);
+        });
+    }
+    syncStorage();
 }
+
