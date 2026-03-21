@@ -3,30 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task-Engine | UI Architect</title>
+    <title>Task-Engine v2.0 | Professional CRUD</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <main class="todo-card">
         <header>
-            <h2>Task Manager</h2>
-            <p>System State: <span id="taskCount">0</span> tasks</p>
+            <div class="header-top">
+                <h2>Task Manager</h2>
+                <span id="completionPercent" role="status">0% Done</span>
+            </div>
+            <div class="progress-container" aria-hidden="true">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
         </header>
 
-        <section class="input-group">
-            <input type="text" id="taskInput" placeholder="Enter a new task..." aria-label="Task Input">
-            <button type="button" class="add-btn" onclick="handleNewTask()">Add</button>
+        <section class="input-section">
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="Add a priority task..." aria-label="New task description">
+                <select id="priorityInput" class="priority-select" aria-label="Select task priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Med</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <button type="button" class="add-btn" onclick="handleNewTask()">Add Task</button>
         </section>
 
-        <ul id="listContainer">
+        <ul id="listContainer" aria-live="polite">
             </ul>
 
         <footer id="footerAction" class="footer-action">
-            <button type="button" class="clear-btn" onclick="clearAllTasks()">Clear All Tasks</button>
+            <div class="stats">
+                <span id="taskCount">0</span> items total
+            </div>
+            <button type="button" class="clear-btn" onclick="clearAllTasks()">Purge Cache</button>
         </footer>
     </main>
 
-    <script src="todoLogic.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
